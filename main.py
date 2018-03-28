@@ -1,5 +1,4 @@
-import sys, pygame, random, apple
-from snake import snake
+import sys, pygame, random
 from enum import Enum
 
 
@@ -14,17 +13,13 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 timer = pygame.time.Clock()
 
+
 class nav(Enum):
-  n = 0
-  s = 1
-  e = 2
-  w = 3
+	n = 0
+	s = 1
+	e = 2
+	w = 3
 
 
 def main():
-  player = snake(screen_width/2, screen_height/2)
-
-
-
-
-
+	game = board()
