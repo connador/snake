@@ -8,7 +8,7 @@ def main():
 
 	finished = False
 	while not finished:
-		clock.tick(10)
+		clock.tick(fps)
 
 		game.draw_apples()
 

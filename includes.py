@@ -12,6 +12,7 @@ RED = (255,   0,   0)
 screen_width = 800
 screen_height = 800
 pixel = 8
+fps = 20
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((screen_width, screen_height))
