@@ -10,7 +10,7 @@ def main():
 	while not finished:
 		clock.tick(fps)
 
-		game.draw_apples()
+		game.update()
 
 		pygame.display.flip()
 

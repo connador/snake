@@ -19,14 +19,40 @@ class board:
 		for i in self.apples:
 			self.apples[i] = random.randrange(0, 800)
 
-	def draw_apples(self):
-		for i in range(3):
-			self.apples[i].draw(screen)
+	def draw_apples(self, collision=False):
+		if collision:
+			for i in range(number_of_apples):
+				if self.apples[i] == collision:
+					self.apples[i].randomize()
+					self.player.grow()
+		else:
+			for i in range(3):
+				self.apples[i].draw(screen)
+
+	def check_collision(self, collision):
+		for i in range(number_of_apples):
+			if collision[0] < self.apples[i].x + pixel \
+					and collision[0] + pixel > self.apples[i].x and \
+					collision[1] < self.apples[i].y + pixel and \
+				collision[1] + pixel > self.apples[i].y:
+					pygame.draw.rect(screen, pygame.color.Color("white"), (self.apples[i].x, self.apples[i].y, pixel, pixel), 0)
+					self.apples[i].randomize()
+
+	def update(self):
+		new_location = self.player.move()
+
+		self.check_collision(new_location)
+
+		self.draw_apples()
+
+		self.player.draw(screen)
 
 
-	def apple_collision(self):
+
+
+	# def apple_collision(self, collision):
 		# TODO: change to hash table lookup?
-		for i in self.apples:
-			for k in self.apples:
-				if self.apples[i] == self.apples[k] and self.apples[i] is not self.apples[k]:
-					self.apples[k].randomize()
+		# for i in self.apples:
+		# 	for k in self.apples:
+		# 		if self.apples[i] == self.apples[k] and self.apples[i] is not self.apples[k]:
+		# 			self.apples[k].randomize()
