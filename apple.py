@@ -20,3 +20,5 @@ class apple:
 	def draw(self, screen):
 		pygame.draw.rect(screen, pygame.color.Color("black"), (self.x, self.y, pixel, pixel), 0)
 
+
+

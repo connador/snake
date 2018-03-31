@@ -29,24 +29,29 @@ class board:
 			for i in range(3):
 				self.apples[i].draw(screen)
 
+	# Check to see if the snake head is colliding with the apple,
+	# keeping in mind that the pixel block size needs to be added
+	# since it is not very likely to ever get both blocks -exactly- aligned
 	def check_collision(self, collision):
 		for i in range(number_of_apples):
-			if collision[0] < self.apples[i].x + pixel \
-					and collision[0] + pixel > self.apples[i].x and \
-					collision[1] < self.apples[i].y + pixel and \
+			if collision[0] < self.apples[i].x + pixel and \
+				collision[1] < self.apples[i].y + pixel and \
+				collision[0] + pixel > self.apples[i].x and \
 				collision[1] + pixel > self.apples[i].y:
 					pygame.draw.rect(screen, pygame.color.Color("white"), (self.apples[i].x, self.apples[i].y, pixel, pixel), 0)
 					self.apples[i].randomize()
+					return True
+		return False
 
 	def update(self):
 		new_location = self.player.move()
 
-		self.check_collision(new_location)
+		hit = self.check_collision(new_location)
+
+		if hit:
+			self.player.grow()
 
 		self.draw_apples()
-
-		self.player.draw(screen)
-
 
 
 
