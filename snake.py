@@ -1,4 +1,4 @@
-from main import pixel, nav
+from includes import *
 
 
 class segment:
