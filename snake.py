@@ -55,25 +55,28 @@ class snake:
 		# todo leap frog method of movement
 		length = len(self.body) - 1
 
-		# if length == i and i != 0:
+		if length == i:
 
-		new_head = segment(self.body[0].x, self.body[0].y, self.body[0].navigation)
+			new_head = segment(self.body[0].x, self.body[0].y, self.body[0].navigation)
 
-		if new_head.navigation is nav.n:
-			new_head.y -= pixel
-		elif new_head.navigation is nav.s:
-			new_head.y += pixel
-		elif new_head.navigation is nav.e:
-			new_head.x += pixel
+			if new_head.navigation is nav.n:
+				new_head.y -= pixel
+			elif new_head.navigation is nav.s:
+				new_head.y += pixel
+			elif new_head.navigation is nav.e:
+				new_head.x += pixel
+			else:
+				new_head.x -= pixel
+
+			self.body.insert(0, new_head)
+
+			old_tail = self.body.pop()
+
+			pygame.draw.rect(screen, pygame.color.Color("white"), (old_tail.x, old_tail.y, pixel, pixel), 0)
+			pygame.draw.rect(screen, pygame.color.Color("black"), (new_head.x, new_head.y, pixel, pixel), 0)
 		else:
-			new_head.x -= pixel
+			pass
 
-		self.body.insert(0, new_head)
-
-		old_tail = self.body.pop()
-
-		pygame.draw.rect(screen, pygame.color.Color("white"), (old_tail.x, old_tail.y, pixel, pixel), 0)
-		pygame.draw.rect(screen, pygame.color.Color("black"), (new_head.x, new_head.y, pixel, pixel), 0)
 
 	def move(self):
 		# length = len(self.body)
