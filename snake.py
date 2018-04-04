@@ -51,21 +51,29 @@ class snake:
 				elif event.key == pygame.K_DOWN:
 					self.body[0].navigation = nav.s
 
-	def draw(self, screen, i):
+	def draw(self, i):
 		# todo leap frog method of movement
+		length = len(self.body) - 1
 
-		pygame.draw.rect(screen, pygame.color.Color("white"), (self.body[i].x, self.body[i].y, pixel, pixel), 0)
+		# if length == i and i != 0:
 
-		if self.body[i].navigation is nav.n:
-			self.body[i].y -= pixel
-		elif self.body[i].navigation is nav.s:
-			self.body[i].y += pixel
-		elif self.body[i].navigation is nav.e:
-			self.body[i].x += pixel
+		new_head = segment(self.body[0].x, self.body[0].y, self.body[0].navigation)
+
+		if new_head.navigation is nav.n:
+			new_head.y -= pixel
+		elif new_head.navigation is nav.s:
+			new_head.y += pixel
+		elif new_head.navigation is nav.e:
+			new_head.x += pixel
 		else:
-			self.body[i].x -= pixel
+			new_head.x -= pixel
 
-		pygame.draw.rect(screen, pygame.color.Color("black"), (self.body[i].x, self.body[i].y, pixel, pixel), 0)
+		self.body.insert(0, new_head)
+
+		old_tail = self.body.pop()
+
+		pygame.draw.rect(screen, pygame.color.Color("white"), (old_tail.x, old_tail.y, pixel, pixel), 0)
+		pygame.draw.rect(screen, pygame.color.Color("black"), (new_head.x, new_head.y, pixel, pixel), 0)
 
 	def move(self):
 		# length = len(self.body)
@@ -81,31 +89,26 @@ class snake:
 		self.set_direction()
 
 		for i in range(len(self.body)):
-			self.draw(screen, i)
+			self.draw(i)
 
 		return [self.body[0].x, self.body[0].y]
 
 	def grow(self):
+		insert_at = len(self.body) - 1
 
-		if self.length is 1:
+		new_x = self.body[insert_at].x
+		new_y = self.body[insert_at].y
 
-			i = 0
-			new_x = self.body[i].x
-			new_y = self.body[i].y
-
-			if self.body[i].navigation is nav.n:
-				new_y += pixel
-			elif self.body[i].navigation is nav.s:
-				new_y -= pixel
-			elif self.body[i].navigation is nav.e:
-				new_x += pixel
-			else:
-				new_x -= pixel
-
-			self.body.append(segment(new_x, new_y, self.body[i].navigation))
-
+		if self.body[insert_at].navigation is nav.n:
+			new_y += pixel
+		elif self.body[insert_at].navigation is nav.s:
+			new_y -= pixel
+		elif self.body[insert_at].navigation is nav.e:
+			new_x -= pixel
 		else:
-			length = len(self.body)
+			new_x += pixel
+
+		self.body.append(segment(new_x, new_y, self.body[insert_at].navigation))
 
 		#self.length += 1
 		#self.body.append()
