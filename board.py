@@ -21,43 +21,58 @@ class board:
 
 	def draw_apples(self, collision=False):
 		if collision:
-			for i in range(number_of_apples):
+			for i in range(len(self.apples)):
 				if self.apples[i] == collision:
 					self.apples[i].randomize()
 					self.player.grow()
 		else:
-			for i in range(3):
+			for i in range(len(self.apples)):
 				self.apples[i].draw(screen)
 
 	# Check to see if the snake head is colliding with the apple,
 	# keeping in mind that the pixel block size needs to be added
 	# since it is not very likely to ever get both blocks -exactly- aligned
-	def check_collision(self, collision):
-		for i in range(number_of_apples):
-			if collision[0] < self.apples[i].x + pixel and \
-				collision[1] < self.apples[i].y + pixel and \
-				collision[0] + pixel > self.apples[i].x and \
-				collision[1] + pixel > self.apples[i].y:
-					pygame.draw.rect(screen, pygame.color.Color("white"), (self.apples[i].x, self.apples[i].y, pixel, pixel), 0)
-					self.apples[i].randomize()
-					return True
-		return False
+	def check_collision(self, new_location, locations):
+		signal = -1
+		for i in range(len(locations)):
+			if new_location[0] < locations[i].x + pixel and \
+				new_location[1] < locations[i].y + pixel and \
+				new_location[0] + pixel > locations[i].x and \
+				new_location[1] + pixel > locations[i].y:
+				signal = i
+
+		return signal
+
+	def game_over(self):
+		message = font.render('Game Over!', False, BLACK)
+		center = message.get_rect(center=(screen_width/2, screen_height/2))
+		screen.blit(message, center)
+
+		message = font.render('Press \'r\' to continue!', False, BLACK)
+		center = message.get_rect(center=(screen_width/2, screen_height/2 + font_size))
+		screen.blit(message, center)
+
+		return 0
+
 
 	def update(self):
-		new_location = self.player.move()
-
-		hit = self.check_collision(new_location)
-
-		if hit:
-			self.player.grow()
-
 		self.draw_apples()
 
+		new_location = self.player.move()
 
+		# Check if an apple was hit
+		hit = self.check_collision(new_location, self.apples)
 
-	# def apple_collision(self, collision):
-		# TODO: change to hash table lookup?
-		# for i in self.apples:
-		# 	for k in self.apples:
-		# 		if self.apples[i] == self.apples[k] and self.apples[i] is not self.apples[k]:
-		# 			self.apples[k].randomize()
+		if hit > -1:
+			pygame.draw.rect(screen, WHITE, (self.apples[hit].x, self.apples[hit].y, pixel, pixel), 0)
+			self.apples[hit].randomize()
+
+			self.player.grow()
+
+		# Check if the snake body was hit
+		hit = self.check_collision(new_location, self.player.body)
+
+		if hit > 0:
+			return self.game_over()
+
+		return 1

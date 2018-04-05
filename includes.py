@@ -11,12 +11,14 @@ RED = (255,   0,   0)
 
 screen_width = screen_height = 800
 pixel = screen_width / 100
+font_size = int(pixel * 5)
 
 fps = 20
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Snake")
+font = pygame.font.Font('font.ttf', font_size)
 
 timer = pygame.time.Clock()
 

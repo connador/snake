@@ -1,8 +1,15 @@
 from includes import *
 from board import board
 
+def check_quit():
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			return True
+
+	return False
 
 def main():
+
 	game = board()
 	screen.fill(WHITE)
 
@@ -10,14 +17,26 @@ def main():
 	while not finished:
 		clock.tick(fps)
 
-		game.update()
+		status = game.update()
+
+		while status == 0:
+			pygame.display.flip()
+			clock.tick(fps)
+			for event in pygame.event.get():
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_r:
+						game = board()
+						screen.fill(WHITE)
+						status = 1
+				elif event.type == pygame.QUIT:
+					status = 1
+					finished = True
 
 		pygame.display.flip()
 
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				finished = True
+		#finished = check_quit
 
+	#sys.exit()
 
 	# while True:
 	# 	events = pygame.event.get()
