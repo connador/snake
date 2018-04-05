@@ -27,9 +27,9 @@ class board:
 			for i in range(len(self.apples)):
 				self.apples[i].draw()
 
-	# Check to see if the snake head is colliding with the apple,
-	# keeping in mind that the pixel block size needs to be added
-	# since it is not very likely to ever get both blocks -exactly- aligned
+	# bounding box collision inspired by
+	# https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+	
 	def check_collision(self, new_location, locations):
 		signal = -1
 		for i in range(len(locations)):
