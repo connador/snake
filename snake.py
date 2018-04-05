@@ -52,9 +52,13 @@ class snake:
 					self.body[0].navigation = nav.s
 
 	def draw(self, i):
-		# todo leap frog method of movement
+
+		# Leap frog implementation of movement.
+		# Essentially, the tail moves up to the front and becomes new head
+
 		length = len(self.body) - 1
 
+		# Only do any draw calls if we're at the tail
 		if length == i:
 
 			new_head = segment(self.body[0].x, self.body[0].y, self.body[0].navigation)
@@ -72,28 +76,24 @@ class snake:
 
 			old_tail = self.body.pop()
 
-			pygame.draw.rect(screen, pygame.color.Color("white"), (old_tail.x, old_tail.y, pixel, pixel), 0)
-			pygame.draw.rect(screen, pygame.color.Color("black"), (new_head.x, new_head.y, pixel, pixel), 0)
+			# Clean up location of tail before move
+			pygame.draw.rect(screen, WHITE, (old_tail.x, old_tail.y, pixel, pixel), 0)
+
+			# Draw at the front
+			pygame.draw.rect(screen, BLACK, (new_head.x, new_head.y, pixel, pixel), 0)
 		else:
 			pass
 
 
 	def move(self):
-		# length = len(self.body)
 
-		# Put end of tail at current head location
-		# if length != 1:
-		# 	old_tail = self.body.pop()
-		# 	old_tail(self.x, self.y)
-		# 	self.body.insert(old_tail, 0)
-
-		# Move head in the faced direction
-
+		# Change head location, based on keyboard input
 		self.set_direction()
 
-		for i in range(len(self.body)):
-			self.draw(i)
+		# leap frog movement of head to tail
+		self.draw(len(self.body) - 1)
 
+		# return new location of head to check for collisions
 		return [self.body[0].x, self.body[0].y]
 
 	def grow(self):

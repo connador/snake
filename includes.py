@@ -9,9 +9,9 @@ BLUE = (0,   0, 255)
 GREEN = (0, 255,   0)
 RED = (255,   0,   0)
 
-screen_width = 800
-screen_height = 800
-pixel = 8
+screen_width = screen_height = 800
+pixel = screen_width / 100
+
 fps = 20
 clock = pygame.time.Clock()
 
