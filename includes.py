@@ -12,6 +12,7 @@ RED = (255,   0,   0)
 screen_width = screen_height = 800
 pixel = screen_width / 100
 font_size = int(pixel * 5)
+number_of_apples = 3
 
 fps = 20
 clock = pygame.time.Clock()

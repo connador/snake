@@ -3,8 +3,6 @@ from includes import *
 from snake import snake
 from apple import apple
 
-number_of_apples = 3
-
 
 class board:
 
@@ -27,7 +25,7 @@ class board:
 					self.player.grow()
 		else:
 			for i in range(len(self.apples)):
-				self.apples[i].draw(screen)
+				self.apples[i].draw()
 
 	# Check to see if the snake head is colliding with the apple,
 	# keeping in mind that the pixel block size needs to be added
@@ -43,6 +41,11 @@ class board:
 
 		return signal
 
+	def check_wall(self, new_location):
+		if new_location[0] < 0 or new_location[1] < 0 or new_location[0] > screen_width or new_location[1] > screen_height:
+			return 1
+		return 0
+
 	def game_over(self):
 		message = font.render('Game Over!', False, BLACK)
 		center = message.get_rect(center=(screen_width/2, screen_height/2))
@@ -53,7 +56,6 @@ class board:
 		screen.blit(message, center)
 
 		return 0
-
 
 	def update(self):
 		self.draw_apples()
@@ -70,9 +72,9 @@ class board:
 			self.player.grow()
 
 		# Check if the snake body was hit
-		hit = self.check_collision(new_location, self.player.body)
+		self.check_collision(new_location, self.player.body)
 
-		if hit > 0:
+		if self.check_collision(new_location, self.player.body) > 0 or self.check_wall(new_location) > 0:
 			return self.game_over()
 
 		return 1

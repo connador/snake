@@ -14,10 +14,10 @@ class apple:
 		self.randomize()
 
 	def randomize(self):
-			self.x = random.randrange(0, 800)
-			self.y = random.randrange(0, 800)
+			self.x = random.randrange(pixel, screen_width - pixel)
+			self.y = random.randrange(pixel, screen_height - pixel)
 
-	def draw(self, screen):
+	def draw(self):
 		pygame.draw.rect(screen, pygame.color.Color("black"), (self.x, self.y, pixel, pixel), 0)
 
 

@@ -1,12 +1,6 @@
 from includes import *
 from board import board
 
-def check_quit():
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			return True
-
-	return False
 
 def main():
 
@@ -34,27 +28,9 @@ def main():
 
 		pygame.display.flip()
 
-		#finished = check_quit
-
-	#sys.exit()
-
-	# while True:
-	# 	events = pygame.event.get()
-	# 	for event in events:
-	# 		if event.type == pygame.KEYDOWN:
-	# 			if event.key == pygame.K_LEFT:
-	# 				print("Left Key")
-	# 			elif event.key == pygame.K_RIGHT:
-	# 				print("Right Key")
-
-
-	# pygame.event.pump()
-	# keys = pygame.key.get_pressed()
-	#
-	# if keys[pygame.K_RIGHT]:
-	# 	print("Right arrow pressed")
-	#
-	# keys[pygame.K_RIGHT]
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				finished = True
 
 
 main()
