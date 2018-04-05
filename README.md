@@ -6,8 +6,8 @@
 * Movement - ←→↑↓ on keyboard
 
 ## To Do
-* Collision with snake body
-* Wrap-around for edge of screen
+* ~~Collision with snake body~~
+* ~~Collision for edge of screen~~
 * Fix artifact when eating apple
 * Sound effects?
 
