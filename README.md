@@ -13,3 +13,8 @@
 
 ## Why?
 I wanted to learn Python and thought that now would be a good time to learn 2D graphics as well
+
+## Credit
+### Font
+    C&C Red Alert by N3tRunn3r
+    https://www.dafont.com/c-c-red-alert-inet.font
