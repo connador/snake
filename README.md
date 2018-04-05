@@ -1,5 +1,7 @@
 # Snake
 
+![Screenshot of Snake](resources/screenshot.png?raw=true "Screenshot of Snake")
+
 ## Controls
 * Movement - ←→↑↓ on keyboard
 
